@@ -1828,6 +1828,12 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
         controlnet_is_loop: bool=True,
         ip_adapter_map: Dict[str, Any] = None,
         interpolation_factor = 1,
+        backbone_scale_1: float = 1.2,
+        backbone_scale_2: float = 1.4,
+        skip_scale_1: float = 0.9,
+        skip_scale_2: float = 0.2,
+        skip_scale_threshold_1: int = 1,
+        skip_scale_threshold_2: int = 1,
         **kwargs,
     ):
         global C_REF_MODE
@@ -2406,6 +2412,12 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
                             encoder_hidden_states=cur_prompt,
                             cross_attention_kwargs=cross_attention_kwargs,
                             return_dict=False,
+                            backbone_scale_1=backbone_scale_1,
+                            backbone_scale_2=backbone_scale_2,
+                            skip_scale_1=skip_scale_1,
+                            skip_scale_2=skip_scale_2,
+                            skip_scale_threshold_1=skip_scale_threshold_1,
+                            skip_scale_threshold_2=skip_scale_threshold_2,
                         )
 
                         stopwatch_record("C_REF_MODE write end")
@@ -2422,6 +2434,12 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
                         cross_attention_kwargs=cross_attention_kwargs,
                         down_block_additional_residuals=down_block_res_samples,
                         mid_block_additional_residual=mid_block_res_sample,
+                        backbone_scale_1=backbone_scale_1,
+                        backbone_scale_2=backbone_scale_2,
+                        skip_scale_1=skip_scale_1,
+                        skip_scale_2=skip_scale_2,
+                        skip_scale_threshold_1=skip_scale_threshold_1,
+                        skip_scale_threshold_2=skip_scale_threshold_2,
                         return_dict=False,
                     )[0]
 

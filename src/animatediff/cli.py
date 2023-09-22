@@ -275,6 +275,48 @@ def generate(
             help="Show version",
         ),
     ] = None,
+    backbone_scale_1: Annotated[
+        float,
+        typer.Option(
+            "--backbone_scale_1",
+            help="Backbone scale 1",
+        ),
+    ] = 1.2,
+    backbone_scale_2: Annotated[
+        float,
+        typer.Option(
+            "--backbone_scale_2",
+            help="Backbone scale 2",
+        ),
+    ] = 1.4,
+    skip_scale_1: Annotated[
+        float,
+        typer.Option(
+            "--skip_scale_1",
+            help="Skip scale 1",
+        ),
+    ] = 0.9,
+    skip_scale_2: Annotated[
+        float,
+        typer.Option(
+            "--skip_scale_2",
+            help="Skip scale 2",
+        ),
+    ] = 0.2,
+    skip_scale_threshold_1: Annotated[
+        int,
+        typer.Option(
+            "--skip_scale_threshold_1",
+            help="Skip scale threshold 1",
+        ),
+    ] = 1,
+    skip_scale_threshold_2: Annotated[
+        int,
+        typer.Option(
+            "--skip_scale_threshold_2",
+            help="Skip scale threshold 2",
+        ),
+    ] = 1,
 ):
     """
     Do the thing. Make the animation happen. Waow.
@@ -423,6 +465,12 @@ def generate(
                 no_frames=no_frames,
                 ip_adapter_map=ip_adapter_map,
                 output_map = model_config.output,
+                backbone_scale_1=backbone_scale_1,
+                backbone_scale_2=backbone_scale_2,
+                skip_scale_1=skip_scale_1,
+                skip_scale_2=skip_scale_2,
+                skip_scale_threshold_1=skip_scale_threshold_1,
+                skip_scale_threshold_2=skip_scale_threshold_2,
             )
             outputs.append(output)
             torch.cuda.empty_cache()

@@ -752,6 +752,12 @@ def run_inference(
     no_frames :bool = False,
     ip_adapter_map: Dict[str,Any] = None,
     output_map: Dict[str,Any] = None,
+    backbone_scale_1: float = 1.2,
+    backbone_scale_2: float = 1.4,
+    skip_scale_1: float = 0.9,
+    skip_scale_2: float = 0.2,
+    skip_scale_threshold_1: int = 1,
+    skip_scale_threshold_2: int = 1,
 ):
     out_dir = Path(out_dir)  # ensure out_dir is a Path
 
@@ -779,7 +785,14 @@ def run_inference(
         controlnet_max_models_on_vram=controlnet_map["max_models_on_vram"] if "max_models_on_vram" in controlnet_map else 99,
         controlnet_is_loop = controlnet_map["is_loop"] if "is_loop" in controlnet_map else True,
         ip_adapter_map=ip_adapter_map,
-        interpolation_factor=1
+        interpolation_factor=1,
+        backbone_scale_1 = backbone_scale_1,
+        backbone_scale_2 = backbone_scale_2,
+        skip_scale_1 = skip_scale_1,
+        skip_scale_2 = skip_scale_2,
+        skip_scale_threshold_1 = skip_scale_threshold_1,
+        skip_scale_threshold_2 = skip_scale_threshold_2,
+
     )
 
     logger.info("Generation complete, saving...")
